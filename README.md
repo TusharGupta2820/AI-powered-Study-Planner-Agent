@@ -1,211 +1,55 @@
-# AI-powered-Study-Planner-Agent
-📚 AI Study Planner Agent
+# AI Study Planner Agent
 
-An AI-powered Study Planner Agent that creates a personalized study timetable for students based on subjects, exam date, and daily study hours.
-The agent dynamically adjusts schedules if a student misses a day and provides AI-generated motivational tips to improve consistency.
+This project implements an AI-powered student productivity agent that creates personalized study timetables and adjusts schedules based on user progress.
 
-This project demonstrates Agentic AI behavior using perception, reasoning, memory, and action.
+## Features
 
-🚀 What This Project Does
+- Input subjects, exam date, and daily study hours
+- AI-generated personalized study timetable based on subject difficulty
+- Automatic schedule adjustment when days are missed
+- Daily plan view with completion tracking
+- Progress tracking with visualization
+- AI-generated motivational tips and study advice
 
-✔ Generates a personalized study timetable
-✔ Considers subject difficulty and available time
-✔ Stores study plans in SQLite
-✔ Automatically rebalances the plan if a day is missed
-✔ Tracks progress day-by-day
-✔ Displays daily study plans
-✔ Provides AI-generated motivational tips
+## Architecture
 
-🤖 Agentic AI Behavior
+- `database.py` - SQLite database logic for storing plans and progress
+- `planner_agent.py` - AI and rule-based logic for generating and adjusting schedules
+- `app.py` - Streamlit UI for user interaction
 
-The AI Study Planner functions as an intelligent student productivity agent:
+## Installation
 
-1️⃣ Perception
+1. Install dependencies: `pip install -r requirements.txt`
+2. Run the application: `streamlit run app.py`
 
-Takes user input:
+## Agent Logic
 
-Subjects
+### Study Plan Generation
 
-Exam date
+The AI agent generates personalized study schedules by:
+1. Calculating available days until the exam
+2. Assigning difficulty levels to subjects (easy, medium, hard)
+3. Estimating required hours per subject based on difficulty
+4. Distributing study hours across available days proportionally
 
-Daily study hours
+### Adaptive Scheduling
 
-Tracks completed and missed study days
+When a day is marked as missed, the agent:
+1. Identifies remaining scheduled days
+2. Calculates total remaining hours to be redistributed
+3. Rebalances the schedule across remaining days
+4. Updates the database with new allocations
 
-2️⃣ Reasoning
+### AI-Powered Features
 
-Uses AI + rule-based logic to:
+- **Motivational Tips**: Generated using OpenRouter API with Qwen3-Coder model based on subject and progress percentage
+- **Study Advice**: Personalized recommendations based on subject difficulty, remaining days, and hours left
 
-Distribute study time based on subject difficulty
+### API Integration
 
-Adjust the schedule if a day is missed
+The application uses OpenRouter API with the following configuration:
+- Model: `qwen/qwen3-coder:free`
+- API Key: `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`
+- Referer: `http://localhost:8501` (for local Streamlit app)
 
-Rebalance remaining days intelligently
-
-3️⃣ Memory
-
-Stores study plan and progress in SQLite
-
-Remembers completed and pending sessions
-
-4️⃣ Action
-
-Updates daily plan
-
-Displays revised timetable
-
-Generates motivational messages
-
-🛠 Tech Stack
-
-Python 3.10+
-
-Streamlit – UI
-
-SQLite – Data storage
-
-LLM API (OpenAI / compatible) – Planning & motivation
-
-dotenv – Environment variable management
-
-📁 Project Structure
-ai-study-planner-agent/
-│
-├── app.py               # Streamlit UI
-├── planner_agent.py     # AI + scheduling logic
-├── database.py          # SQLite operations
-├── requirements.txt
-├── .env                 # API keys (not committed)
-├── study_plan.db        # SQLite database
-└── README.md
-
-📌 Features
-
-✅ Subject-wise timetable generation
-
-✅ AI-based difficulty balancing
-
-✅ Daily study plan view
-
-✅ Missed-day auto adjustment
-
-✅ Progress tracking
-
-✅ AI motivational tips
-
-✅ Persistent storage with SQLite
-
-🔑 Prerequisites
-
-Python 3.10 or higher
-
-LLM API key (OpenAI / compatible)
-
-Git (optional)
-
-⚙️ Setup Instructions
-1️⃣ Clone the Repository
-git clone https://github.com/your-username/ai-study-planner-agent.git
-cd ai-study-planner-agent
-
-2️⃣ Create Virtual Environment
-python -m venv venv
-
-
-Activate it:
-
-Windows
-
-venv\Scripts\activate
-
-
-Linux / Mac
-
-source venv/bin/activate
-
-3️⃣ Install Dependencies
-pip install -r requirements.txt
-
-4️⃣ Set Environment Variables
-
-Create a .env file in the project root:
-
-OPENAI_API_KEY=your_api_key_here
-
-
-⚠️ Never commit API keys to GitHub
-
-5️⃣ Run the Application
-streamlit run app.py
-
-
-Open in browser:
-
-http://localhost:8501
-
-🧠 How the AI Planner Works
-📌 Study Plan Generation
-
-Calculates total available study days
-
-Distributes time based on:
-
-Subject difficulty
-
-Remaining exam days
-
-Daily study hours
-
-📌 Missed Day Handling
-
-Detects missed sessions
-
-Redistributes remaining workload
-
-Updates future timetable dynamically
-
-📌 Motivation Engine
-
-Generates daily motivational tips
-
-Encourages consistency and focus
-
-🖥 Example Workflow
-
-User enters:
-
-Subjects: Math, Physics, Chemistry
-
-Exam Date: 30 days away
-
-Daily Study Hours: 4
-
-AI generates a personalized plan
-
-User marks Day 5 as missed
-
-AI rebalances remaining days automatically
-
-Updated plan is displayed instantly
-
-📊 Database Schema (SQLite)
-study_plan Table
-Column	Type
-id	INTEGER (Primary Key)
-date	TEXT
-subject	TEXT
-hours	INTEGER
-status	TEXT
-🔮 Future Enhancements
-
-🔔 Smart reminders & notifications
-
-📱 Mobile-friendly UI
-
-📊 Visual progress charts
-
-🎤 Voice input support
-
-🐳 Docker deployment
-
-☁️ Cloud database integration
+The AI features are used for generating motivational content and personalized study advice based on the user's current progress and goals.
